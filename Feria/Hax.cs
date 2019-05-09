@@ -68,17 +68,17 @@ namespace Feria
         private static float myplayerz;
         private float velocity;
         private GamePlayerNetworked closestEnemy;
-        private double yMovement;
-        private double lastyPosition;
-        private double newydirection;
+      
+      
+   
         public  Vector3 mousePosition;
-        private short myfriend;
+    
         private int myfirstfriend =999;
         private int mysecondfriend = 999;
         private int mythirdfriend = 999;
         private int myfourthfriend = 999;
         private float previous;
-        private bool nomoreloop = true;
+  
         private WeaponType gearload;
         private float pspeed = 0;
 
@@ -123,7 +123,7 @@ namespace Feria
 
             }
 
-            NoReloadTime();
+         //   NoReloadTime();
             Camera.main.orthographicSize = Menu.EntityDist;
          
         }
@@ -389,26 +389,19 @@ namespace Feria
 
 
                     position3.y += 6.5f;
-                    Vector3 vector = Camera.main.WorldToScreenPoint(position3);
-                    Vector3 vector2 = vector;
+                    
+                    Vector3 vector2 = Camera.main.WorldToScreenPoint(position3);
                     vector2.y = (float) Screen.height - vector2.y - 50f;
                     vector2.x -= 15f;
+
                     Vector2 vector3 = GUI.skin.label.CalcSize(new GUIContent(
                         cur.playerName + Environment.NewLine + num1 + Environment.NewLine + "Health: " + cur.playerHP ));
+
+
                     bool flag7 = vector2.x > (float) Screen.width - vector3.x;
                     if (flag7)
                     {
-                        for (;;)
-                        {
-                            switch (3)
-                            {
-                                case 0:
-                                    continue;
-                            }
-
-                            break;
-                        }
-
+                       
                         vector2.x = (float) Screen.width - vector3.x;
                     }
 

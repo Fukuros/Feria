@@ -219,14 +219,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Class2.cs" />
+    <Compile Include="GuiMenu.cs" />
     <Compile Include="Hax.cs" />
-    <Compile Include="LoaderF.cs" />
-    <Compile Include="ReloadPatch.cs" />
-    <Compile Include="winclass.cs" />
-    <Compile Include="Zrender.cs" />
-    <Compile Include="UIHelper.cs" />
+    <Compile Include="Loader.cs" />
+    <Compile Include="GuiHelperUi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

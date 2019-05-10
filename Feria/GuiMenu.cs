@@ -15,6 +15,10 @@ namespace Feria
             this._window2 = new Rect(10f, 10f, 250f, 150f);
             this._window3 = new Rect(10f, 10f, 250f, 150f);
             this._window4 = new Rect(10f, 10f, 250f, 150f);
+			
+			// add the hack to the hack dictionary
+			hacks.Add(noreload.name, noreload);
+			hacks.Add(esper.name, esper);
         }
 
         // Token: 0x0600004B RID: 75 RVA: 0x00003B90 File Offset: 0x00001D90
@@ -48,6 +52,15 @@ namespace Feria
 
         public void Draw(int id)
         {
+			// update the hacks
+			foreach (var pair in hacks) {
+				string name = pair.Key;
+				Hack hack = pair.Value;
+				// update the toggle
+				hack.on = GUILayout.Toggle(hack.on, hack.name, new GUILayoutOption[0]);
+			}
+			
+			Hack.Toggle
             GuiMenu.LootESP = GUILayout.Toggle(GuiMenu.LootESP, "Loot ESP", new GUILayoutOption[0]);
             GuiMenu.EntityESP = GUILayout.Toggle(GuiMenu.EntityESP, "Entity ESP", new GUILayoutOption[0]);
             GuiMenu.NoReload = GUILayout.Toggle(GuiMenu.NoReload, "No Reload", new GUILayoutOption[0]);
@@ -101,7 +114,12 @@ namespace Feria
         private Rect _window4;
 
 
-
+		// name, hack
+		public static Dictionary<string, Hack> hacks = new Dictionary<string, Hack>();
+		// initialize hack objects
+		public static Hack noreload = new NoReload("NoReload");
+		public static Hack esper = new ESP("ESP");
+		
         public static bool NoSlow = false;
         public static bool Auto = false;
         public static bool NoReload = false;

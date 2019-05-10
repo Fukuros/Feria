@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using CodeStage.AntiCheat.Detectors;
@@ -11,6 +13,11 @@ namespace Feria
     {
         private const uint StdOutputHandle = 0xFFFFFFF5;
 
+        public  Dictionary<string, Hack> hacks = new Dictionary<string, Hack>();
+        // initialize hack objects
+        public Hack noreload;
+        private GuiMenu guimenu;
+        public Hack esper;
 
         public Hax()
         {
@@ -43,6 +50,47 @@ namespace Feria
         public void Update()
         {
             Camera.main.orthographicSize = GuiMenu.EntityDist;
+            foreach (var v in hacks)
+            {
+                Hack h = v.Value;
+                h.Update();
+                Console.WriteLine(v.Key);
+                Console.WriteLine(v.Value);
+            }
+          
+        }
+
+        public void OnGUI()
+        {
+            foreach (var v in hacks)
+            {
+                Hack h = v.Value;
+                h.OnGUI();
+                Console.WriteLine(v.Key);
+                Console.WriteLine(v.Value);
+            }
+
+        }
+
+
+        public void Start()
+        {
+           esper = new ESP(this);
+           noreload = new NoReload(this);
+           guimenu = new GuiMenu(this);
+
+            hacks.Add(noreload.named, noreload);
+            hacks.Add(esper.named, esper);
+            hacks.Add(guimenu.named, guimenu);
+            foreach (var v in hacks)
+            {
+                Hack h = v.Value;
+
+                h.Start();
+                Console.WriteLine(v.Key);
+                Console.WriteLine(v.Value);
+            }
+
         }
     }
 }

@@ -1,26 +1,34 @@
 ﻿using System;
 using Steamworks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Feria
 {
-    internal class ESP : MonoBehaviour
+    internal class ESP : Hack
     {
         private Camera gCamera;
 
         private GamePlayerNetworked[] gPlayer;
         private string myPlayer;
 
-        public void Start()
+        override public void Start()
         {
             myPlayer = SteamFriends.GetPersonaName();
             Console.WriteLine("ESP Module Loaded");
-            InvokeRepeating("FetchPlayer", 1.0f,
+            b.InvokeRepeating("FetchPlayer", 1.0f,
                 1.0f); // Calls a method on start of game - Starts after 1 second in game repeats every 15 seconds.
-            InvokeRepeating("FetchCamera", 1.0f, 1.0f);
+            b.InvokeRepeating("FetchCamera", 1.0f, 1.0f);
         }
 
-        public void OnGUI()
+
+        public ESP(Hax b):base("ESP", b)
+        {
+         
+        }
+
+
+        override public void OnGUI()
         {
             Esper();
         }
@@ -28,21 +36,22 @@ namespace Feria
         public void FetchPlayer()
         {
           
-            gPlayer = FindObjectsOfType<GamePlayerNetworked>(); // Load GamePlayerNetworked Class/Object into 
+            gPlayer = MonoBehaviour.FindObjectsOfType<GamePlayerNetworked>(); // Load GamePlayerNetworked Class/Object into 
          
         }
 
         public void FetchCamera()
         {
       
-            gCamera = FindObjectOfType<Camera>(); // Load Camera Class/Object into Memory
+            gCamera = MonoBehaviour.FindObjectOfType<Camera>(); // Load Camera Class/Object into Memory
            
         }
 
         private void Esper()
         {
+            //Console.WriteLine("called update no ESPER");
             //   Console.WriteLine("started func ESPER");
-            if (GuiMenu.EntityESP)
+            if (enabled)
                 //     Console.WriteLine("detected enabled esper");
                 foreach (var p in gPlayer)
                 {
@@ -88,6 +97,11 @@ namespace Feria
                         GUI.backgroundColor = backgroundColor;
                     }
                 }
+        }
+
+        public override void Update()
+        {
+         //   throw new NotImplementedException();
         }
     }
 }

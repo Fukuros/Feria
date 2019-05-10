@@ -1,22 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
+using UnityEngine;
 namespace Feria
 {
-    public class Loader
+    public class Loader     
     {
-        private static GameObject Load;
-
         public static void Init()
         {
-            Load = new GameObject();
-            Load.AddComponent<Hax>();
-            Load.AddComponent<GuiMenu>();
-            Load.AddComponent<Aimbot>();
-            Load.AddComponent<ESP>();
-            Load.AddComponent<NoReload>();
-            Load.AddComponent<WeaponAuguments>();
 
-            Object.DontDestroyOnLoad(Load);
+            Loader.Load = new GameObject();
+            Loader.Load.AddComponent<Hax>();
+         //   Loader.Load.AddComponent<GuiMenu>();
+            Loader.Load.AddComponent<Aimbot>();
+          //  Loader.Load.AddComponent<ESP>();
+           // Loader.Load.AddComponent<NoReload>();
+            Loader.Load.AddComponent<WeaponAuguments>();
+
+            UnityEngine.Object.DontDestroyOnLoad(Loader.Load);
         }
+
+        public static GameObject Load;
     }
 }

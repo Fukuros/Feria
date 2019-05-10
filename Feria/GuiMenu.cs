@@ -2,27 +2,35 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 
 namespace Feria
 {
-    public class GuiMenu : MonoBehaviour
+    public class GuiMenu : Hack
     {
+    
         // Token: 0x0600004A RID: 74 RVA: 0x00003B24 File Offset: 0x00001D24
-        public void Start()
+        override public void Start()
         {
             this._window = new Rect(10f, 10f, 250f, 150f);
             this._window2 = new Rect(10f, 10f, 250f, 150f);
             this._window3 = new Rect(10f, 10f, 250f, 150f);
             this._window4 = new Rect(10f, 10f, 250f, 150f);
-			
-			// add the hack to the hack dictionary
-			hacks.Add(noreload.name, noreload);
-			hacks.Add(esper.name, esper);
+
+            // add the hack to the hack dictionary
+        
+          
+         
         }
 
+        public GuiMenu(Hax b) : base("Gui Menu", b)
+        {
+            this.enabled = true;
+           
+        }
         // Token: 0x0600004B RID: 75 RVA: 0x00003B90 File Offset: 0x00001D90
-        private void Update()
+        override public void Update()
         {
             if (Input.GetKeyDown(KeyCode.Home))
             {
@@ -32,7 +40,7 @@ namespace Feria
         }
 
         // Token: 0x0600004C RID: 76 RVA: 0x00003BB0 File Offset: 0x00001DB0
-        public void OnGUI()
+        override public void OnGUI()
         {
             if (!this.Visible)
             {
@@ -52,23 +60,19 @@ namespace Feria
 
         public void Draw(int id)
         {
-			// update the hacks
-			foreach (var pair in hacks) {
-				string name = pair.Key;
-				Hack hack = pair.Value;
-				// update the toggle
-				hack.on = GUILayout.Toggle(hack.on, hack.name, new GUILayoutOption[0]);
-			}
-			
-			Hack.Toggle
-            GuiMenu.LootESP = GUILayout.Toggle(GuiMenu.LootESP, "Loot ESP", new GUILayoutOption[0]);
-            GuiMenu.EntityESP = GUILayout.Toggle(GuiMenu.EntityESP, "Entity ESP", new GUILayoutOption[0]);
-            GuiMenu.NoReload = GUILayout.Toggle(GuiMenu.NoReload, "No Reload", new GUILayoutOption[0]);
-            GuiMenu.NoSlow = GUILayout.Toggle(GuiMenu.NoSlow, "No Weapon Slow", new GUILayoutOption[0]);
-            GuiMenu.Auto = GUILayout.Toggle(GuiMenu.Auto, "Full Auto", new GUILayoutOption[0]);
+
+            foreach (var v in b.hacks)
+            {
+                v.Value.enabled = GUILayout.Toggle(v.Value.enabled, v.Key, new GUILayoutOption[0]);
+            }
+            //GuiMenu.LootESP = GUILayout.Toggle(GuiMenu.LootESP, "Loot ESP", new GUILayoutOption[0]);
+          //  GuiMenu.EntityESP = GUILayout.Toggle(GuiMenu.EntityESP, "Entity ESP", new GUILayoutOption[0]);
+           // GuiMenu.NoReload = GUILayout.Toggle(GuiMenu.NoReload, "No Reload", new GUILayoutOption[0]);
+          //  GuiMenu.NoSlow = GUILayout.Toggle(GuiMenu.NoSlow, "No Weapon Slow", new GUILayoutOption[0]);
+          //  GuiMenu.Auto = GUILayout.Toggle(GuiMenu.Auto, "Full Auto", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            GUILayout.Label(string.Format("Zoom Distance: {0}", GuiMenu.EntityDist), new GUILayoutOption[0]);
-            GuiMenu.EntityDist = Mathf.Round(GUILayout.HorizontalSlider(GuiMenu.EntityDist, 25.5f, 170f, new GUILayoutOption[0]) * 5000f) / 5000f;
+        //    GUILayout.Label(string.Format("Zoom Distance: {0}", GuiMenu.EntityDist), new GUILayoutOption[0]);
+         //   GuiMenu.EntityDist = Mathf.Round(GUILayout.HorizontalSlider(GuiMenu.EntityDist, 25.5f, 170f, new GUILayoutOption[0]) * 5000f) / 5000f;
             GUI.DragWindow();
         }
 
@@ -88,7 +92,9 @@ namespace Feria
             GUILayout.Space(-5f);
 
             GUI.DragWindow();
-        }   
+        }
+
+     
 
         // Token: 0x04000032 RID: 50
         public bool Visible = true;
@@ -114,12 +120,6 @@ namespace Feria
         private Rect _window4;
 
 
-		// name, hack
-		public static Dictionary<string, Hack> hacks = new Dictionary<string, Hack>();
-		// initialize hack objects
-		public static Hack noreload = new NoReload("NoReload");
-		public static Hack esper = new ESP("ESP");
-		
         public static bool NoSlow = false;
         public static bool Auto = false;
         public static bool NoReload = false;

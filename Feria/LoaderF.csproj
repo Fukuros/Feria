@@ -219,6 +219,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hack.cs" />
     <Compile Include="Modules\Aimbot.cs" />
     <Compile Include="Modules\ESP.CS" />
     <Compile Include="GuiMenu.cs" />

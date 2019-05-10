@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace Feria
@@ -7,22 +8,33 @@ namespace Feria
     {
         private GamePlayerController gController;
 
-        public void Start()
+        override public void Start()
         {
             Console.WriteLine("No Reload Module Loaded");
-            InvokeRepeating("FetchController", 1.0f,
+            b.InvokeRepeating("FetchController", 1.0f,
                 15.0f); // Calls a method on start of game - Starts after 1 second in game repeats every 15 seconds.
         }
 
-        public void FetchController()
+        public NoReload(Hax b) : base("No Reload", b)
         {
-            gController =
-                FindObjectOfType<GamePlayerController>(); // Load GamePlayerController Class/Object into Memory
+
         }
 
-        public void Update()
+        override public void OnGUI()
         {
-            if (GuiMenu.NoReload) gController.reloadFinishTime = 0;
+
+        }
+
+       public void FetchController()
+        {
+            gController =
+                MonoBehaviour.FindObjectOfType<GamePlayerController>(); // Load GamePlayerController Class/Object into Memory
+        }
+
+        override public void Update()
+        {
+            //Console.WriteLine("called update no reload");
+            if (enabled) gController.reloadFinishTime = 0;
         }
     }
 }

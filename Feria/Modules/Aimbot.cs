@@ -96,12 +96,11 @@ namespace Feria
                 var xOut = Convert.ToInt32(vx);
                 var yOut = Convert.ToInt32(vy);
                 var currentLevel = gScript.currentLevel;
-                var flag3 = currentLevel.GetIsCollisionBetweenPoints((uint) myplayerx, (uint) myplayery,
+                var CollissionCheck = currentLevel.GetIsCollisionBetweenPoints((uint) myplayerx, (uint) myplayery,
                     (uint) p.transform.position.x, (uint) p.transform.position.y, CollisionType.MovementAndSight);
 
 
-                if (p.playerHP != 0 && DistanceFromMouse < 250 && p.playerName != myPlayer && !flag3 &&
-                    p.playerName != "Artillee")
+                if (p.playerHP != 0 && DistanceFromMouse < 250 && p.playerName != myPlayer && !CollissionCheck)
                 {
                     velocity = (p.transform.position.y - previous) / Time.deltaTime;
                     previous = p.transform.position.y;

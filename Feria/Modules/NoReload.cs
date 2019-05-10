@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Feria
 {
-    internal class NoReload : MonoBehaviour
+    internal class NoReload : Hack
     {
         private GamePlayerController gController;
 

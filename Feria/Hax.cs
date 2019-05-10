@@ -1,60 +1,48 @@
-﻿using Harmony;
-using System;
-using System.Collections;
-using System.Diagnostics.Eventing.Reader;
-using System.Reflection;
+﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using Lidgren.Network;
-using PlayFab.PlayStreamModels;
+using CodeStage.AntiCheat.Detectors;
 using UnityEngine;
 
 namespace Feria
 {
     public class Hax : MonoBehaviour
     {
-        
-        private const UInt32 StdOutputHandle = 0xFFFFFFF5;
-
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr GetStdHandle(UInt32 nStdHandle);
-
-        [DllImport("kernel32.dll")]
-        private static extern void SetStdHandle(UInt32 nStdHandle, IntPtr handle);
-
-        [DllImport("kernel32")]
-        static extern bool AllocConsole(int pid);
-
-        [DllImport("msvcrt.dll")]
-        public static extern int system(string cmd);
-
+        private const uint StdOutputHandle = 0xFFFFFFF5;
 
 
         public Hax()
         {
-
-            CodeStage.AntiCheat.Detectors.InjectionDetector.Dispose();
-            CodeStage.AntiCheat.Detectors.ObscuredCheatingDetector.Dispose();
-            CodeStage.AntiCheat.Detectors.SpeedHackDetector.Dispose();
-            CodeStage.AntiCheat.Detectors.TimeCheatingDetector.Dispose();
-            CodeStage.AntiCheat.Detectors.WallHackDetector.Dispose();
+            InjectionDetector.Dispose();
+            ObscuredCheatingDetector.Dispose();
+            SpeedHackDetector.Dispose();
+            TimeCheatingDetector.Dispose();
+            WallHackDetector.Dispose();
 
             AllocConsole(-1);
             var stdout = Console.OpenStandardOutput();
-            var sw = new System.IO.StreamWriter(stdout, Encoding.Default);
+            var sw = new StreamWriter(stdout, Encoding.Default);
             sw.AutoFlush = true;
             Console.SetOut(sw);
             Console.SetError(sw);
-
-
         }
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr GetStdHandle(uint nStdHandle);
+
+        [DllImport("kernel32.dll")]
+        private static extern void SetStdHandle(uint nStdHandle, IntPtr handle);
+
+        [DllImport("kernel32")]
+        private static extern bool AllocConsole(int pid);
+
+        [DllImport("msvcrt.dll")]
+        public static extern int system(string cmd);
 
         public void Update()
         {
             Camera.main.orthographicSize = GuiMenu.EntityDist;
         }
-
-
-
     }
 }

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
+
 public static class GuiHelperUi
 {
     public static GUIStyle StringStyle { get; set; } = new GUIStyle(GUI.skin.label);
 
     public static Color Color
     {
-        get { return GUI.color; }
-        set { GUI.color = value; }
+        get => GUI.color;
+        set => GUI.color = value;
     }
 
     public static void DrawLine(Vector2 from, Vector2 to, Color color)
@@ -14,6 +15,7 @@ public static class GuiHelperUi
         Color = color;
         DrawLine(from, to);
     }
+
     public static void DrawLine(Vector2 from, Vector2 to)
     {
         var angle = Vector2.SignedAngle(from, to);
@@ -27,6 +29,7 @@ public static class GuiHelperUi
         Color = color;
         DrawBox(position, size, centered);
     }
+
     public static void DrawBox(Vector2 position, Vector2 size, bool centered = true)
     {
         var upperLeft = centered ? position - size / 2f : position;
@@ -38,6 +41,7 @@ public static class GuiHelperUi
         Color = color;
         DrawString(position, label, centered);
     }
+
     public static void DrawString(Vector2 position, string label, bool centered = true)
     {
         var content = new GUIContent(label);

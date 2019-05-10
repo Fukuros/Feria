@@ -227,7 +227,6 @@
     <Compile Include="GuiHelperUi.cs" />
     <Compile Include="Modules\NoReload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GetObjects.cs" />
     <Compile Include="Modules\WeaponAuguments.cs" />
   </ItemGroup>
   <ItemGroup>

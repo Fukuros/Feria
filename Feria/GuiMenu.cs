@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Feria
 {
-    public class Menu : MonoBehaviour
+    public class GuiMenu : MonoBehaviour
     {
         // Token: 0x0600004A RID: 74 RVA: 0x00003B24 File Offset: 0x00001D24
         public void Start()
@@ -34,7 +34,7 @@ namespace Feria
             {
                 return;
             }
-            this._window = GUILayout.Window(0, this._window, new GUI.WindowFunction(this.Draw), "Feria Menu V0.3", new GUILayoutOption[0]);
+            this._window = GUILayout.Window(0, this._window, new GUI.WindowFunction(this.Draw), "Feria v1.0", new GUILayoutOption[0]);
             if (this.OptionsVisible)
             {
                 this._window2 = GUILayout.Window(1, this._window2, new GUI.WindowFunction(this.DrawESPOptions), "Entity Options", new GUILayoutOption[0]);
@@ -48,13 +48,14 @@ namespace Feria
 
         public void Draw(int id)
         {
-            Menu.LootESP = GUILayout.Toggle(Menu.LootESP, "Loot ESP", new GUILayoutOption[0]);
-            Menu.EntityESP = GUILayout.Toggle(Menu.EntityESP, "Entity ESP", new GUILayoutOption[0]);
-            Menu.NoReload = GUILayout.Toggle(Menu.NoReload, "No Reload", new GUILayoutOption[0]);
-            Menu.PickUp = GUILayout.Toggle(Menu.PickUp, "Revive", new GUILayoutOption[0]);
+           
+            GuiMenu.EntityESP = GUILayout.Toggle(GuiMenu.EntityESP, "Entity ESP", new GUILayoutOption[0]);
+            GuiMenu.NoReload = GUILayout.Toggle(GuiMenu.NoReload, "No Reload", new GUILayoutOption[0]);
+            GuiMenu.NoSlow = GUILayout.Toggle(GuiMenu.NoSlow, "No Weapon Slow", new GUILayoutOption[0]);
+            GuiMenu.Auto = GUILayout.Toggle(GuiMenu.Auto, "Full Auto", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            GUILayout.Label(string.Format("Zoom Distance: {0}", Menu.EntityDist), new GUILayoutOption[0]);
-            Menu.EntityDist = Mathf.Round(GUILayout.HorizontalSlider(Menu.EntityDist, 25.5f, 170f, new GUILayoutOption[0]) * 5000f) / 5000f;
+            GUILayout.Label(string.Format("Zoom Distance: {0}", GuiMenu.EntityDist), new GUILayoutOption[0]);
+            GuiMenu.EntityDist = Mathf.Round(GUILayout.HorizontalSlider(GuiMenu.EntityDist, 25.5f, 170f, new GUILayoutOption[0]) * 5000f) / 5000f;
             GUI.DragWindow();
         }
 
@@ -101,7 +102,8 @@ namespace Feria
 
 
 
-
+        public static bool NoSlow = false;
+        public static bool Auto = false;
         public static bool NoReload = false;
         public static bool PickUp = false;
         public static bool EntityESP = false;

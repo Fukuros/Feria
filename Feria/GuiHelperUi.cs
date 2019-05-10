@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public static class ZatsRenderer
+public static class GuiHelperUi
 {
     public static GUIStyle StringStyle { get; set; } = new GUIStyle(GUI.skin.label);
 

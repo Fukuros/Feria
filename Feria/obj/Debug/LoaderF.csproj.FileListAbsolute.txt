@@ -217,8 +217,8 @@ C:\Users\Lemon\Documents\GitHub\Feria\Feria\bin\Debug\UnityEngine.VRModule.xml
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\bin\Debug\UnityEngine.WebModule.xml
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\bin\Debug\UnityEngine.WindModule.xml
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\bin\Debug\WindowsInput.xml
-C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\LoaderF.csprojAssemblyReference.cache
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\LoaderF.csproj.CoreCompileInputs.cache
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\LoaderF.csproj.CopyComplete
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\Feria.dll
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\Feria.pdb
+C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\LoaderF.csprojAssemblyReference.cache

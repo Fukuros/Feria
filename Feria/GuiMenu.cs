@@ -56,6 +56,9 @@ namespace Feria
             GUILayout.Space(10f);
             GUILayout.Label(string.Format("Zoom Distance: {0}", GuiMenu.EntityDist), new GUILayoutOption[0]);
             GuiMenu.EntityDist = Mathf.Round(GUILayout.HorizontalSlider(GuiMenu.EntityDist, 25.5f, 170f, new GUILayoutOption[0]) * 5000f) / 5000f;
+            GUILayout.Label(string.Format("Aimbot Slider: {0}", GuiMenu.AimbotSlider), new GUILayoutOption[0]);
+            GuiMenu.AimbotSlider = Mathf.Round(GUILayout.HorizontalSlider(GuiMenu.AimbotSlider, 0.1f, 5f, new GUILayoutOption[0]) * 5000f) / 5000f;
+
             GUI.DragWindow();
         }
 
@@ -109,6 +112,7 @@ namespace Feria
         public static bool EntityESP = false;
         public static bool LootESP = false;
         public  static float EntityDist = 67.5f;
-    
+        public static float AimbotSlider = 1.5f;
+
     }
 }

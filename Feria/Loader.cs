@@ -13,8 +13,8 @@ namespace Feria
             Load.AddComponent<GuiMenu>();
             Load.AddComponent<Aimbot>();
             Load.AddComponent<ESP>();
-            Load.AddComponent<NoReload>();
-            Load.AddComponent<WeaponAuguments>();
+          Load.AddComponent<NoReload>();
+           Load.AddComponent<WeaponAuguments>();
 
             Object.DontDestroyOnLoad(Load);
         }

@@ -29,13 +29,41 @@ namespace Feria
 
             myPlayer = SteamFriends.GetPersonaName();
           
-            InvokeRepeating("FetchPlayer", 1.0f,
-                0.3f); // Calls a method on start of game - Starts after 1 second in game repeats every 15 seconds.
+      //      InvokeRepeating("FetchPlayer", 1.0f,
+               // 0.3f); // Calls a method on start of game - Starts after 1 second in game repeats every 15 seconds.
             InvokeRepeating("FetchCamera", 1.0f, 0.3f);
             InvokeRepeating("FetchScript", 1.0f,
                 0.3f); // Calls a method on start of game - Starts after 1 second in game repeats every 15 seconds.
+            InvokeRepeating("CompareObjectsLive", 1.0f, 5.0f);
         }
+        public void CompareObjectsLive()
+        {
+            if (gPlayer == null)
+            {
 
+                FetchPlayer(); // INITIAL OBJECT DOES NOT EXIST SO CREATE IT 
+
+
+            }
+
+            if (gScript == null && gPlayer != null && gPlayer.Length == 64)
+            {
+                Console.WriteLine("shit is hella null gscript  " + gPlayer.Length);
+                Array.Clear(gPlayer, 0, 63); // CLEAR INDEX BECAUSE OUTSIDE OF GAME
+                FetchPlayer();
+            }
+            else
+            {
+                Console.WriteLine(gScript.playersAliveCount);
+            }
+
+            if (gPlayer.Length < gScript.playersAliveCount)
+            {
+                Array.Clear(gPlayer, 0, gPlayer.Length);
+                Console.WriteLine("Player length is not correct forcing fetch player method " + "Length " + gPlayer.Length + "Players Alive" + gScript.playersAliveCount);
+                FetchPlayer();
+            }
+        }
         public void Update()
         {
             if (Input.GetKey(KeyCode.Mouse1))
@@ -100,18 +128,16 @@ namespace Feria
                     (uint) p.transform.position.x, (uint) p.transform.position.y, CollisionType.MovementAndSight);
 
 
-                if (p.playerHP != 0 && DistanceFromMouse < 250 && p.playerName != myPlayer && !CollissionCheck)
+                if (p.playerHP != 0 && DistanceFromMouse < 250  && !CollissionCheck && p.playerName != myPlayer && p.playerName != "Artillee")
                 {
                     velocity = (p.transform.position.y - previous) / Time.deltaTime;
                     previous = p.transform.position.y;
 
 
                     if (DistanceToEnemy > 125 && ProjectileSpeed != 0)
-                        CurMovSpeed = (int) DistanceToEnemy / (int) ProjectileSpeed +
-                                      Convert.ToInt32(p.GetCurrentMoveSpeed() + time_of_impact(p.xMovement, velocity,
-                                                          p.xMovement, velocity, ProjectileSpeed) * 2);
+                        CurMovSpeed = (int) DistanceToEnemy / Convert.ToInt32(ProjectileSpeed * 0.35)  + Convert.ToInt32(p.GetCurrentMoveSpeed());
                     else
-                        CurMovSpeed = Convert.ToInt32(p.GetCurrentMoveSpeed());
+                        CurMovSpeed = Convert.ToInt32(p.GetCurrentMoveSpeed() * 0.25);
 
 
                     if (p.xMovement > 0 && velocity < 0)

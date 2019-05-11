@@ -9,10 +9,12 @@ namespace Feria
         private WeaponType gearload;
 
         private GamePlayerNetworked[] gPlayer;
-
+        private string myPlayer;
 
         public void Start()
         {
+
+            myPlayer = SteamFriends.GetPersonaName();
             Console.WriteLine("Weapon AUG Module Loaded");
             InvokeRepeating("FetchPlayer", 1.0f,
                 1.0f); // Calls a method on start of game - Starts after 1 second in game repeats every 15 seconds.
@@ -26,7 +28,7 @@ namespace Feria
         public void Update()
         {
             foreach (var p in gPlayer)
-                if (p.playerName == SteamFriends.GetPersonaName()) // fetches my name 
+                if (p.playerName == myPlayer) // fetches my name 
                 {
                     var mycurrentweapon = p.equipmentIDs[p.currentEquipmentIndex];
                     gearload = WeaponType.GetAllWeaponTypes()[mycurrentweapon];

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using MultiplayerBasicExample;
 using Steamworks;
 using UnityEngine;
 
@@ -10,16 +12,24 @@ namespace Feria
 
         private GamePlayerNetworked[] gPlayer;
         private string myPlayer;
+        private GameScript gScript;
 
         public void Start()
         {
             myPlayer = SteamFriends.GetPersonaName();
             Console.WriteLine("ESP Module Loaded");
-            InvokeRepeating("FetchPlayer", 1.0f,
-                1.0f); // Calls a method on start of game - Starts after 1 second in game repeats every 15 seconds.
+          //  InvokeRepeating("FetchPlayer", 1.0f, 15.0f); // Calls a method on start of game - Starts after 1 second in game repeats every 15 seconds.
             InvokeRepeating("FetchCamera", 1.0f, 1.0f);
+            InvokeRepeating("FetchScript", 1.0f, 5.0f);
+            InvokeRepeating("CompareObjectsLive", 1.0f, 5.0f);
         }
 
+        public void Update()
+        {
+         
+        }
+
+        
         public void OnGUI()
         {
             Esper();
@@ -30,6 +40,39 @@ namespace Feria
           
             gPlayer = FindObjectsOfType<GamePlayerNetworked>(); // Load GamePlayerNetworked Class/Object into 
          
+        }
+
+        public void CompareObjectsLive()
+        {
+            if (gPlayer == null)
+            {
+
+                FetchPlayer(); // INITIAL OBJECT DOES NOT EXIST SO CREATE IT 
+
+
+            }
+
+            if (gScript == null && gPlayer != null && gPlayer.Length == 64)
+            {
+                Console.WriteLine("shit is hella null gscript  " + gPlayer.Length);
+                Array.Clear(gPlayer, 0, 63); // CLEAR INDEX BECAUSE OUTSIDE OF GAME
+                FetchPlayer();
+            }
+            else
+            {
+                Console.WriteLine(gScript.playersAliveCount);
+            }
+
+            if (gPlayer.Length < gScript.playersAliveCount)
+            {
+                Array.Clear(gPlayer, 0, gPlayer.Length);
+                Console.WriteLine("Player length is not correct forcing fetch player method " + "Length " + gPlayer.Length + "Players Alive" + gScript.playersAliveCount);
+                FetchPlayer();
+            }
+        }
+        public void FetchScript()
+        {
+            gScript = FindObjectOfType<GameScript>(); // Load GameScript Class/Object into Memory
         }
 
         public void FetchCamera()

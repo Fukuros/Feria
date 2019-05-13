@@ -23,6 +23,7 @@ namespace Feria
         public void Update()
         {
             if (GuiMenu.NoReload) gController.reloadFinishTime = 0;
+
         }
     }
 }

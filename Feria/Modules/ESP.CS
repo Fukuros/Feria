@@ -13,6 +13,7 @@ namespace Feria
         private GamePlayerNetworked[] gPlayer;
         private string myPlayer;
         private GameScript gScript;
+        private Color mycolorsuggestion;
 
         public void Start()
         {
@@ -124,11 +125,49 @@ namespace Feria
 
                     if (p.playerHP != 0 && p.playerName != myPlayer && num1 < 2100)
                     {
-                        GUI.Label(new Rect(vector2, new Vector2(vector3.x, vector3.y)),
-                            p.playerName + Environment.NewLine + num1 + Environment.NewLine + "Health: " + p.playerHP);
-                        var backgroundColor = GUI.backgroundColor;
-                        GUI.backgroundColor = Color.red;
-                        GUI.backgroundColor = backgroundColor;
+
+                     
+                        if (p.currArmorAmount == 3)
+                        {
+
+                            mycolorsuggestion = new Color(0.961f, 0.345f, 0.357f, 1); // coral cute
+                        }
+                        if (p.currArmorAmount == 2)
+                        {
+
+                            mycolorsuggestion = new Color(0.365f, 0.557f, 0.976f, 1); // some blueish shit  ???? 0.365, 0.557, 0.976
+                        }
+
+                        if (p.currArmorAmount == 1)
+                        {
+
+                            mycolorsuggestion = new Color(0.886f, 1f, 0.859f, 1); // gray 
+                        }
+                     
+                        
+                        if(p.currArmorAmount == 0)
+                        {
+
+                            if (p.playerHP == 0)
+                            {
+                                mycolorsuggestion = Color.red;
+                            }
+                            mycolorsuggestion = Color.green; // default color no armour 
+                            if (p.playerHP <= 65)
+                            {
+                                mycolorsuggestion = Color.yellow;
+                            }
+
+                            if (p.playerHP <= 30)
+                            {
+                                mycolorsuggestion = Color.red;
+                            }
+                        }
+
+                        //GUI.Label(new Rect(vector2, new Vector2(vector3.x, vector3.y)),
+                        //     p.playerName + Environment.NewLine + num1 + Environment.NewLine + "Health: " + p.playerHP);
+                        GuiHelperUi.DrawString(vector2,  p.playerName + Environment.NewLine + Math.Round(num1) + Environment.NewLine + "Health: " + p.playerHP +Environment.NewLine + "Armour: " + p.currArmorAmount,mycolorsuggestion, false);
+                     
                     }
                 }
         }

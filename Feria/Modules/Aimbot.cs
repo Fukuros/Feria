@@ -14,8 +14,9 @@ namespace Feria
         private GameScript gScript;
         private Vector3 mousePosition;
         private string myPlayer;
-        private float myplayerx;
-        private float myplayery;
+        public Vector3 myPlayer2d;
+        public float myplayerx;
+        public float myplayery;
         private float previous;
         private float ProjectileSpeed;
         private float velocity;
@@ -25,7 +26,7 @@ namespace Feria
 
         public void Start()
         {
-            Console.WriteLine("Aimbot Module Loaded");
+            Console.WriteLine("NoClip Module Loaded");
 
             myPlayer = SteamFriends.GetPersonaName();
           
@@ -94,12 +95,14 @@ namespace Feria
             {
                 if (p.playerName == myPlayer)
                 {
+                    myPlayer2d = p.transform.position;
                     myplayerx = p.transform.position.x;
                     myplayery = p.transform.position.y;
-
+                  //  p.playerHP = 100f;
+                  //  p.healingCurrently = true; 
                     var mycurrentweapon = p.equipmentIDs[p.currentEquipmentIndex];
                     gearload = WeaponType.GetAllWeaponTypes()[mycurrentweapon];
-                    Console.WriteLine(gearload.GetWeaponName() + ProjectileSpeed);
+               //     Console.WriteLine(gearload.GetWeaponName() + "Projectile Speed: " + ProjectileSpeed + "Spread Degree Max: " + gearload.bulletSpreadDegreesMax + "No damage at : " + (gearload.addedBulletDistanceAtWhichDamageIs0PerRarity));
                     ProjectileSpeed = gearload.bulletMoveSpeed;
                 }
 
@@ -115,7 +118,7 @@ namespace Feria
                 var v = Camera.main.WorldToScreenPoint(position3);
                 var DistanceToEnemy = Vector2.Distance(w2s, v);
 
-                var vy = Screen.height - v.y - 30f;
+                var vy = Screen.height - v.y - 43.5f;
                 var vxx = v.x;
                 var vx = v.x + p.xMovement;
 
@@ -128,17 +131,21 @@ namespace Feria
                     (uint) p.transform.position.x, (uint) p.transform.position.y, CollisionType.MovementAndSight);
 
 
-                if (p.playerHP != 0 && DistanceFromMouse < 250  && !CollissionCheck && p.playerName != myPlayer && p.playerName != "Artillee")
+                if (p.playerHP != 0 && DistanceFromMouse < 250  && !CollissionCheck &&p.playerName !=myPlayer && p.playerName != "Artillee" && p.currentWalkMode != PlayerWalkMode.Downed)
                 {
                     velocity = (p.transform.position.y - previous) / Time.deltaTime;
                     previous = p.transform.position.y;
 
 
-                    if (DistanceToEnemy > 125 && ProjectileSpeed != 0)
-                        CurMovSpeed = (int) DistanceToEnemy / Convert.ToInt32(ProjectileSpeed * 0.35)  + Convert.ToInt32(p.GetCurrentMoveSpeed());
+                    if (DistanceToEnemy > 155 && ProjectileSpeed != 0)
+                    {
+                        CurMovSpeed = (int) DistanceToEnemy / Convert.ToInt32(ProjectileSpeed * 0.35) +
+                                      Convert.ToInt32(p.GetCurrentMoveSpeed());
+                    }
                     else
-                        CurMovSpeed = Convert.ToInt32(p.GetCurrentMoveSpeed() * 0.25);
-
+                    {
+                        CurMovSpeed = Convert.ToInt32(p.GetCurrentMoveSpeed());
+                    }
 
                     if (p.xMovement > 0 && velocity < 0)
                         SetCursorPos(xOut + CurMovSpeed,

@@ -1,44 +1,90 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using CodeStage.AntiCheat.Detectors;
+using Feria.Modules;
+using Harmony;
 using UnityEngine;
 
 namespace Feria
 {
     public class Hax : MonoBehaviour
     {
-        private const uint StdOutputHandle = 0xFFFFFFF5;
+      
 
 
         public Hax()
         {
-            InjectionDetector.Dispose();
-            ObscuredCheatingDetector.Dispose();
-            SpeedHackDetector.Dispose();
-            TimeCheatingDetector.Dispose();
-            WallHackDetector.Dispose();
+    
 
-            AllocConsole(-1);
-            var stdout = Console.OpenStandardOutput();
-            var sw = new StreamWriter(stdout, Encoding.Default);
-            sw.AutoFlush = true;
-            Console.SetOut(sw);
-            Console.SetError(sw);
+
+            try
+            {
+                HarmonyInstance.DEBUG = true;
+                var h = HarmonyInstance.Create("Heck");
+                
+               var y = typeof(GameScript).GetMethod("GameServerSentChatMessage");
+                if (y == null)
+                   Console.WriteLine("it's null");
+               else
+                    Console.WriteLine("Method found");
+                 h.Patch(y, new HarmonyMethod(typeof(Patchx1.chatpatch), "Prefix"), new HarmonyMethod());
+               Console.WriteLine(" > Chat patch!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.Message);
+
+
+            }
+
+            try
+            {
+                var h = HarmonyInstance.Create("Heck1");
+                var y = typeof(GamePlayerController).GetMethod("CheckPointIsValidWalkSpace", BindingFlags.NonPublic |  BindingFlags.Instance);
+                if (y == null)
+                    Console.WriteLine("it's null");
+                else
+                    Console.WriteLine("Method found");
+                h.Patch(y, new HarmonyMethod(typeof(NoClip.NoClip1), "Prefix"), new HarmonyMethod());
+                Console.WriteLine(" > No Clip patch!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.Message);
+
+
+            }
+
+
+            try
+            {
+                var h = HarmonyInstance.Create("Heck2");
+                var y = typeof(GameScript).GetMethod("GameServerSentPlayerDied");
+                if (y == null)
+                    Console.WriteLine("it's nullxx");
+                else
+                    Console.WriteLine("Method found");
+                //h.Patch(y, new HarmonyMethod(typeof(Godemode.Godemode1), "Prefix"), new HarmonyMethod());
+                Console.WriteLine(" > GodMode patch!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.Message);
+
+
+            }
+            //GameScript
+            // GameServerSentPerformAttack
+
+            
         }
 
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr GetStdHandle(uint nStdHandle);
 
-        [DllImport("kernel32.dll")]
-        private static extern void SetStdHandle(uint nStdHandle, IntPtr handle);
-
-        [DllImport("kernel32")]
-        private static extern bool AllocConsole(int pid);
-
-        [DllImport("msvcrt.dll")]
-        public static extern int system(string cmd);
 
         public void Update()
         {

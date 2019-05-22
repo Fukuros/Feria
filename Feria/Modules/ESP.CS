@@ -53,7 +53,7 @@ namespace Feria
 
             }
 
-            if (gScript == null && gPlayer != null && gPlayer.Length == 64)
+            if (gScript == null && gPlayer != null )
             {
                 Console.WriteLine("shit is hella null gscript  " + gPlayer.Length);
                 Array.Clear(gPlayer, 0, 63); // CLEAR INDEX BECAUSE OUTSIDE OF GAME

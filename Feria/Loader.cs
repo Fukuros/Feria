@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using Feria.Modules;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -40,7 +41,7 @@ namespace Feria
             Load.AddComponent<Aimbot>();
             Load.AddComponent<ESP>();
           Load.AddComponent<NoReload>();
-        //  Load.AddComponent<Drop>();
+       // Load.AddComponent<FollowBot>();
             Load.AddComponent<WeaponAuguments>();
 
 

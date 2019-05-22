@@ -116,3 +116,6 @@ C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\LoaderF.csproj.CopyComplet
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\Feria.dll
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\Feria.pdb
 C:\Users\Lemon\Documents\GitHub\Feria\Feria\obj\Debug\LoaderF.csprojAssemblyReference.cache
+C:\Users\Lemon\Documents\GitHub\Feria\Feria\bin\Debug\WindowsInput.dll
+C:\Users\Lemon\Documents\GitHub\Feria\Feria\bin\Debug\WindowsInput.xml
+C:\Users\Lemon\Documents\GitHub\Feria\Feria\bin\Debug\WindowsInput.pdb
